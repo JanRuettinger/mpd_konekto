@@ -1,0 +1,61 @@
+version: '3.7'
+services:
+    patient_frontend:
+        image: node:alpine
+        build: ./patient_frontend/
+        restart: always
+        ports:
+            - '3000:3000'
+        working_dir: /patient_frontend/src/
+        volumes:
+            - ./patient_frontend:/patient_frontend/src/
+        entrypoint: ['npm', 'start']
+        depends_on:
+            - mongodb
+        networks:
+            - webappnetwork
+
+    rescueteam_frontend:
+        image: node:alpine
+        build: ./rescueteam_frontend/
+        restart: always
+        ports:
+            - '3001:3001'
+        working_dir: /rescueteam_frontend/src/
+        volumes:
+            - ./rescueteam_frontend:/rescueteam_frontend/src/
+        entrypoint: ['npm', 'start']
+        depends_on:
+            - mongodb
+        networks:
+            - webappnetwork
+    backend:
+        image: webapp-api
+        build: ./backend/
+        restart: always
+        ports:
+            - '9000:9000'
+        volumes:
+            - ./backend:/backend
+            - /backend/node_modules
+        environment:
+            - SECRET_KEY_BASE=secret
+            - MONGO_URL=mongodb://mongodb:27017/emergency_app
+        entrypoint: ['npm', 'run', 'dev']
+        depends_on:
+            - mongodb
+        networks:
+            - webappnetwork
+    mongodb:
+        image: mongo
+        restart: always
+        volumes:
+            - ./database:/data/db
+        ports:
+            - 27017:27017
+        command: mongod --noauth --smallfiles
+        networks:
+            - webappnetwork
+networks:
+    webappnetwork:
+        driver: bridge
