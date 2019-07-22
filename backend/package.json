@@ -1,0 +1,30 @@
+{
+  "name": "mpd_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d dist --source-maps",
+    "serve": "NODE_ENV=production node dist/app.js",
+    "start": "NODE_ENV=development nodemon --exec babel-node src/app.js",
+    "dev": "DEBUG=server:debug, NODE_ENV=development nodemon src/app.js --exec babel-node --presets env",
+    "eslint": "eslint src/**/*.js --ignore-pattern \"node_modules/\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http": "^0.0.0",
+    "mongoose": "^5.5.14",
+    "node-geocoder": "^3.23.0",
+    "nodemon": "^1.19.1",
+    "socket.io": "^2.2.0",
+    "twilio": "^3.31.1"
+  }
+}
