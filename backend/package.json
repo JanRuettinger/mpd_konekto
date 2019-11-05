@@ -21,7 +21,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "http": "^0.0.0",
-    "mongoose": "^5.5.14",
+    "mongoose": "^5.7.5",
     "node-geocoder": "^3.23.0",
     "nodemon": "^1.19.1",
     "socket.io": "^2.2.0",
